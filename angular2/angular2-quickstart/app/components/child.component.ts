@@ -21,7 +21,7 @@ import {GrandchildComponent} from './grandchild.component';
       border: 1px solid #000000;
       left: -1px;
       top: -4px;
-      width : 30em;
+      width : 15em;
       margin-right: .8em;
       border-radius: 4px 4px 4px 4px ;
     }

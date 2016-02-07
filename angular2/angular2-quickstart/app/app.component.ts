@@ -8,15 +8,12 @@ import {ItemComponent} from './components/item.component';
 @Component({
     selector: 'my-app',
     template: `
-<h1>My First Angular 2 App</h1>
+<h1>2階層のリスト</h1>
 
 <div class="child" *ngFor="#child of children">
   <my-child title="{{child}}">Loading...</my-child>
 </div>
 
-<my-injchild>Loading...</my-injchild>
-<my-item item="{{item}}">Loading...</my-item>
-<button (click)="reset()">Reset</button>
 
 `,
 directives: [ChildComponent,InjChildComponent,ItemComponent]
