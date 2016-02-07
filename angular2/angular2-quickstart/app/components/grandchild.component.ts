@@ -1,10 +1,14 @@
-import {Component} from 'angular2/core';
+import {Component,Input} from 'angular2/core';
 
 @Component({
     selector: 'my-grandchild',
     template: `
-<h3>My 1st Grandchild Component</h3>
+<div class="title">My 1st {{title}} Component</div>
 `
-
 })
-export class GrandchildComponent { }
+export class GrandchildComponent {
+  @Input() title: string;
+  // public title = "grandchild";
+  constructor() {
+  }
+}
