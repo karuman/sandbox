@@ -11,10 +11,11 @@ import {Component,Input} from 'angular2/core';
     .grandchild {
       background-color: #FFFFFF;
       border: 1px solid #000000;
-      width : 30em;
+      width : 20em;
       left: -1px;
       top: -4px;
       margin-right: .8em;
+      margin-bottom: .8em;
       border-radius: 4px 4px 4px 4px;
     }
   `],

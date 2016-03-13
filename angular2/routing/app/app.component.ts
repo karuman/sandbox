@@ -1,11 +1,12 @@
 import {Component} from 'angular2/core'
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router'
-import {Page1} from './page1.component'
-import {Page2} from './page2.component'
+import {Top} from './components/top.component'
+import {Edit} from './components/edit.component'
+import {Search} from './components/search.component'
+
 
 const template = `
-<a [routerLink]="['Spam']">page1</a>
-<a [routerLink]="['Ham']">page2</a>
+<a [routerLink]="['Top']">topページに戻る</a>
 <router-outlet></router-outlet>
 `;
 
@@ -17,14 +18,19 @@ const template = `
 @RouteConfig([
   {
     useAsDefault: true,
-    path: '/page1',
-    component: Page1,
-    name: 'Spam'
+    path: '/top',
+    component: Top,
+    name: 'Top'
   },
   {
-    path: '/page2',
-    component: Page2,
-    name: 'Ham'
+    path: '/edit',
+    component: Edit,
+    name: 'Edit'
+  },
+  {
+    path: '/search',
+    component: Search,
+    name: 'Search'
   }
 ])
 export class AppComponent {
