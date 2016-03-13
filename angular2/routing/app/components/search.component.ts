@@ -25,7 +25,6 @@ const template = `
          </div>
        </div>
   </div>
-<my-rest>Loading...</my-rest>
 `;
 
 @Component({
