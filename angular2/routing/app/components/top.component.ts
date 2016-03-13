@@ -48,7 +48,7 @@ export class Top  {
 
   goEdit() {
     console.log('go to Edit');
-    this.router.navigate(['Edit']);
+    this.router.navigate(['Edit', {id :'0'}]);
   }
   goSearch() {
     console.log('go to search');

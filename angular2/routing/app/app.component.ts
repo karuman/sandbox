@@ -23,7 +23,7 @@ const template = `
     name: 'Top'
   },
   {
-    path: '/edit',
+    path: '/edit/:id',
     component: Edit,
     name: 'Edit'
   },

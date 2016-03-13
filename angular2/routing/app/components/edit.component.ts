@@ -1,10 +1,11 @@
 import {Component} from 'angular2/core'
+import {RouteParams, Router} from 'angular2/router';
 import {ChildComponent} from './child.component';
 
 
 
 const template = `
-<h2>Edit/View</h2>
+<h2>Edit/View  {{title}}</h2>
 
  <div class="btn_area">
      <div class="open_btn" (click)="openGroup()"> Group表示</div>
@@ -42,10 +43,16 @@ const template = `
 export class Edit {
   public groups = [];
   groupExpanded = false;
+  public title:string;
 
   child ='';
-  constructor() {
+  constructor(public router: Router,private _routeParams:RouteParams) {
     this.child='Prod';
+  }
+
+  ngOnInit() {
+    let id = this._routeParams.get('id');
+    this.title=id;
   }
   openGroup(){
       if(this.groupExpanded){

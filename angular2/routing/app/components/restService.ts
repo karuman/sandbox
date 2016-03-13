@@ -20,7 +20,7 @@ export default class RestService {
   body : string;
 
 
-  get():string[]  {
+  get()  {
 
 ////     return this.http.get("/1_get.json")
 ////      .map(res => res.json() as Sample)

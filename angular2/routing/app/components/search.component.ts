@@ -21,7 +21,7 @@ const template = `
        </div>
        <div class="results">
          <div  *ngFor="#result of results">
-            <div class="result" (click)="goEdit()">  {{result.name}} </div>
+            <div class="result" (click)="goEdit(result.id)">  {{result.name}} </div>
          </div>
        </div>
   </div>
@@ -72,28 +72,23 @@ const template = `
 })
 export class Search {
 
-  public results:string[] ;
-  items: Observable<string>;
+  public results;
 
   constructor(public router: Router,private restService:RestService) {
   }
 
-  goEdit() {
+  goEdit(id_num) {
     console.log('go to Edit');
-    this.router.navigate(['Edit']);
+    this.router.navigate(['Edit', {id :id_num}]);
   }
   doSearch() {
     console.log('do search');
-//    this.results = ['prod1', 'prod2', 'prod3', 'prod4'];
      this.results=this.restService.get();
-//       this.items = this.restService.get();
        console.log('get results');
-       console.log(this.items);
 
   }
   doReset() {
     this.results = [];
-//    this.items = [];
   }
 
 }
