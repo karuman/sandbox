@@ -1,0 +1,15 @@
+{
+  "id":2,
+  "name": "製品2",
+  "description": "製品2ですよ",
+  "chilid":[
+            {"id":10,"name":"子です","description":"説明ですよ"},
+            {"id":10,"name":"子です","description":"説明ですよ"},
+            {"id":10,"name":"子です","description":"説明ですよ"},
+            {"id":10,"name":"子です","description":"説明ですよ"},
+            {"id":10,"name":"子です","description":"説明ですよ"}
+  ],
+  "group":[
+            {"id":1,"name":"america"}
+  ]
+}

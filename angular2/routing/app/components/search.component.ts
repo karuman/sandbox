@@ -3,6 +3,7 @@ import {Router} from 'angular2/router'
 import {Observable} from 'rxjs/Observable';
 import RestService from "./restService";
 import {MyRest} from './rest.component';
+import {Product} from './prod';
 
 const template = `
 <h2>Search</h2>
@@ -20,8 +21,8 @@ const template = `
          <div class="search_btn" (click)="doReset()"> クリア</div>
        </div>
        <div class="results">
-         <div  *ngFor="#result of results">
-            <div class="result" (click)="goEdit(result.id)">  {{result.name}} </div>
+         <div  *ngFor="#product of products">
+            <div class="result" (click)="goEdit(product.id)">  {{product.name}} </div>
          </div>
        </div>
   </div>
@@ -72,7 +73,8 @@ const template = `
 })
 export class Search {
 
-  public results;
+  products: Array<Product>;
+  public results ;
 
   constructor(public router: Router,private restService:RestService) {
   }
@@ -83,12 +85,20 @@ export class Search {
   }
   doSearch() {
     console.log('do search');
-     this.results=this.restService.get();
-       console.log('get results');
+//     this.results=this.restService.get();
+   console.log('get results');
+   this.refreshProducts() ;
 
   }
+
   doReset() {
     this.results = [];
+    this.products =[];
+  }
+
+  refreshProducts() {
+    this.restService.getSearch()
+      .subscribe(res => this.products = res);
   }
 
 }

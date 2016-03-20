@@ -1,8 +1,10 @@
 [{
   "id":1,
-  "name": "製品１"
+  "name": "製品１",
+  "description": "製品ですよ"
 },
 {
   "id":2,
-  "name": "製品２"
+  "name": "製品２",
+  "description": "製品ですよ"
 }]

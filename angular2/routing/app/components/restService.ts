@@ -2,8 +2,10 @@ import {bootstrap} from 'angular2/platform/browser';
 import {Component, Injectable} from 'angular2/core';
 import {HTTP_PROVIDERS, Http, Request, Response} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
+import {Product} from './prod';
 
 import 'rxjs/add/operator/map';
+
 
 
 // データの型
@@ -42,5 +44,47 @@ export default class RestService {
     console.log("main end")
 //    return ['rprod1', 'rprod2', 'rprod3', 'rprod4'];
       return this.ot;
+  }
+
+  //------------------------------------------------------------------------
+  //
+  //
+  //------------------------------------------------------------------------
+  getProduct() {
+    // return an observable
+   
+    //let url='./mock/prod/'+id+'_get.json';
+    return this.http.get('./mock/prod/1_get.json')
+    .map( (responseData) => {
+      return responseData.json();
+    })
+    .map((product: any) => {
+      let result:Product ;
+      if (product) {
+         result=new Product(product.id, product.name,product.description);
+      }
+      return result;
+    });
+  }
+
+  //------------------------------------------------------------------------
+  //
+  //
+  //------------------------------------------------------------------------
+  getSearch() {
+    // return an observable
+    return this.http.get('./mock/search/2_get.json')
+    .map( (responseData) => {
+      return responseData.json();
+    })
+    .map((products: Array<any>) => {
+      let result:Array<Product> = [];
+      if (products) {
+        products.forEach((product) => {
+          result.push(new Product(product.id, product.name,product.description));
+        });
+      }
+      return result;
+    });
   }
 }

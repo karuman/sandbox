@@ -1,6 +1,8 @@
 import {Component} from 'angular2/core'
 import {RouteParams, Router} from 'angular2/router';
 import {ChildComponent} from './child.component';
+import RestService from "./restService";
+import {Product} from './prod';
 
 
 
@@ -21,6 +23,10 @@ const template = `
    <my-child title="{{child}}">Loading...</my-child>
  </div>
 
+    <H1>
+           {{ product.name }}
+    </H1>
+
 `;
 
 @Component({
@@ -37,22 +43,31 @@ const template = `
     }
 
   `],
-
+  providers: [RestService],
   directives: [ChildComponent]
 })
 export class Edit {
+  product: Product;
   public groups = [];
   groupExpanded = false;
   public title:string;
 
   child ='';
-  constructor(public router: Router,private _routeParams:RouteParams) {
+  constructor(
+              private restService:RestService,
+              public router: Router,
+              private _routeParams:RouteParams) {
     this.child='Prod';
+    this.product=new Product(0,'','');
   }
 
   ngOnInit() {
     let id = this._routeParams.get('id');
     this.title=id;
+    if(+id>0){ // stringからnumberへのcast
+      this.refreshProduct();
+    }
+
   }
   openGroup(){
       if(this.groupExpanded){
@@ -63,5 +78,11 @@ export class Edit {
          this.groupExpanded = true;
       }
   }
+
+  refreshProduct() {
+    this.restService.getProduct()
+      .subscribe(res => this.product = res);
+  }
+
 
 }
