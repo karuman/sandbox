@@ -51,6 +51,7 @@ export class Edit {
   public groups = [];
   groupExpanded = false;
   public title:string;
+  public id:string;
 
   child ='';
   constructor(
@@ -64,6 +65,7 @@ export class Edit {
   ngOnInit() {
     let id = this._routeParams.get('id');
     this.title=id;
+    this.id=id;
     if(+id>0){ // stringからnumberへのcast
       this.refreshProduct();
     }
@@ -80,7 +82,7 @@ export class Edit {
   }
 
   refreshProduct() {
-    this.restService.getProduct()
+    this.restService.getProduct(this.id)
       .subscribe(res => this.product = res);
   }
 

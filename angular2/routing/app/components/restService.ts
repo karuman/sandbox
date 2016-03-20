@@ -24,12 +24,6 @@ export default class RestService {
 
   get()  {
 
-////     return this.http.get("/1_get.json")
-////      .map(res => res.json() as Sample)
-////      .finally(()=>{
-////        console.log("end")
-////      });
-
     this.http.request(new Request({
      method: "Get",
      url: "./mock/search/2_get.json"
@@ -50,11 +44,11 @@ export default class RestService {
   //
   //
   //------------------------------------------------------------------------
-  getProduct() {
+  getProduct(id:string) {
     // return an observable
    
-    //let url='./mock/prod/'+id+'_get.json';
-    return this.http.get('./mock/prod/1_get.json')
+    let url='./mock/prod/'+id+'_get.json';
+    return this.http.get(url)
     .map( (responseData) => {
       return responseData.json();
     })
