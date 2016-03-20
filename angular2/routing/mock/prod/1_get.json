@@ -2,7 +2,7 @@
   "id":1,
   "name": "製品1",
   "description": "製品ですよ",
-  "chilid":[
+  "children":[
             {"id":10,"name":"子です","description":"説明ですよ"},
             {"id":10,"name":"子です","description":"説明ですよ"},
             {"id":10,"name":"子です","description":"説明ですよ"},

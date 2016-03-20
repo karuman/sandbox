@@ -20,7 +20,7 @@ const template = `
 
 
  <div class="child_area">
-   <my-child title="{{child}}">Loading...</my-child>
+   <my-child title="{{product.name}}">Loading...</my-child>
  </div>
 
     <H1>
@@ -59,7 +59,7 @@ export class Edit {
               public router: Router,
               private _routeParams:RouteParams) {
     this.child='Prod';
-    this.product=new Product(0,'','');
+    this.product=new Product(0,'','',this.groups);
   }
 
   ngOnInit() {

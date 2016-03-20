@@ -41,7 +41,7 @@ export default class RestService {
   }
 
   //------------------------------------------------------------------------
-  //
+  // Productの詳細を取得する
   //
   //------------------------------------------------------------------------
   getProduct(id:string) {
@@ -55,14 +55,14 @@ export default class RestService {
     .map((product: any) => {
       let result:Product ;
       if (product) {
-         result=new Product(product.id, product.name,product.description);
+         result=new Product(product.id, product.name,product.description,product.children);
       }
       return result;
     });
   }
 
   //------------------------------------------------------------------------
-  //
+  // 検索条件にマッチする製品を取得する
   //
   //------------------------------------------------------------------------
   getSearch() {
@@ -75,7 +75,7 @@ export default class RestService {
       let result:Array<Product> = [];
       if (products) {
         products.forEach((product) => {
-          result.push(new Product(product.id, product.name,product.description));
+          result.push(new Product(product.id, product.name,product.description,product.children));
         });
       }
       return result;
