@@ -11,7 +11,7 @@ import {Product} from './prod';
        </div>
         <span>
          <div class="grandchild" *ngFor="#grandchild of grandchildren">
-               <my-grandchild title="{{ grandchild.name}}">Loading...</my-grandchild>
+               <my-child [product]="grandchild">Loading...</my-child>
          </div>
         </span>
 `,
@@ -32,7 +32,7 @@ import {Product} from './prod';
       left: 100px;
     }
   `],
-    directives: [GrandchildComponent]
+  directives: [ChildComponent]
 })
 
 
