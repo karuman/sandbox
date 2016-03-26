@@ -20,12 +20,8 @@ const template = `
 
 
  <div class="child_area">
-   <my-child title="{{product.name}}">Loading...</my-child>
+   <my-child [product]="product">Loading...</my-child>
  </div>
-
-    <H1>
-           {{ product.name }}
-    </H1>
 
 `;
 

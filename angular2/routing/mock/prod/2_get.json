@@ -2,12 +2,12 @@
   "id":2,
   "name": "製品2",
   "description": "製品2ですよ",
-  "chilid":[
-            {"id":10,"name":"子です","description":"説明ですよ"},
-            {"id":10,"name":"子です","description":"説明ですよ"},
-            {"id":10,"name":"子です","description":"説明ですよ"},
-            {"id":10,"name":"子です","description":"説明ですよ"},
-            {"id":10,"name":"子です","description":"説明ですよ"}
+  "children":[
+            {"id":20,"name":"20子です","description":"20説明ですよ"},
+            {"id":21,"name":"21子です","description":"21説明ですよ"},
+            {"id":22,"name":"22子です","description":"22説明ですよ"},
+            {"id":23,"name":"23子です","description":"23説明ですよ"},
+            {"id":24,"name":"24子です","description":"24説明ですよ"}
   ],
   "group":[
             {"id":1,"name":"america"}

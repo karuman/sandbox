@@ -3,11 +3,11 @@
   "name": "製品1",
   "description": "製品ですよ",
   "children":[
-            {"id":10,"name":"子です","description":"説明ですよ"},
-            {"id":10,"name":"子です","description":"説明ですよ"},
-            {"id":10,"name":"子です","description":"説明ですよ"},
-            {"id":10,"name":"子です","description":"説明ですよ"},
-            {"id":10,"name":"子です","description":"説明ですよ"}
+            {"id":10,"name":"10子です","description":"10説明ですよ"},
+            {"id":11,"name":"11子です","description":"11説明ですよ"},
+            {"id":12,"name":"12子です","description":"12説明ですよ"},
+            {"id":13,"name":"13子です","description":"13説明ですよ"},
+            {"id":14,"name":"14子です","description":"14説明ですよ"}
   ],
   "group":[
             {"id":1,"name":"america"}

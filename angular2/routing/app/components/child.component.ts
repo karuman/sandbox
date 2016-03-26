@@ -1,16 +1,17 @@
 import {Component,Input} from 'angular2/core';
 import {GrandchildComponent} from './grandchild.component';
+import {Product} from './prod';
 
 @Component({
     selector: 'my-child',
 
     template: `
        <div class="child" (click)="getList()">
-         {{title}} {{flag}}
+         {{product.name}} {{flag}}
        </div>
         <span>
          <div class="grandchild" *ngFor="#grandchild of grandchildren">
-               <my-grandchild title="{{ grandchild}}">Loading...</my-grandchild>
+               <my-grandchild title="{{ grandchild.name}}">Loading...</my-grandchild>
          </div>
         </span>
 `,
@@ -36,8 +37,8 @@ import {GrandchildComponent} from './grandchild.component';
 
 
 export class ChildComponent {
-  @Input() title: string;
-  public grandchildren ;
+  @Input() product: Product;
+  public grandchildren : Product[];
   expanded = false;
   flag = '+';
   getList(){
@@ -46,7 +47,8 @@ export class ChildComponent {
          this.expanded = false;
          this.flag = '+';
       }else{
-         this.grandchildren = ['Windstorm', 'Bombasto', 'Magneta', 'Tornado'];
+//         this.grandchildren = ['Windstorm', 'Bombasto', 'Magneta', 'Tornado'];
+         this.grandchildren = this.product.children;
          this.expanded = true;
          this.flag = '-';
       }
