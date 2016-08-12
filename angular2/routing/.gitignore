@@ -1,0 +1,14 @@
+/app/ts/components/*.js
+/app/ts/components/*.map
+/app/ts/services/*.js
+/app/ts/services/*.map
+/app/ts/*.js
+/app/ts/*.map
+/app/components/ts/*.js
+/app/components/ts/*.map
+/app/services/ts/*.js
+/app/services/ts/*.map
+/app/util/ts/*.js
+/app/util/ts/*.map
+/nbproject
+/node_modules
