@@ -1,13 +1,10 @@
 import mechanize
 import re
 import sys
-
-
 from BeautifulSoup import BeautifulSoup
 
 args = sys.argv
-
-area=args[1]
+area=args[1]  # Search Area
 
 top_page = 'http://www.homes.co.jp/mansion/chuko/'+area+'/list/'
 
@@ -15,6 +12,8 @@ top_page = 'http://www.homes.co.jp/mansion/chuko/'+area+'/list/'
 br = mechanize.Browser()
 br.set_handle_robots(False)
 
+
+# Get total bukken number
 
 br.open(top_page)
 assert br.viewing_html()
@@ -27,10 +26,12 @@ found_num= result_soup.find('span',{ "class" : "totalNum" })
 totalNum=int(found_num.text)
 print "total " + str(totalNum)
 
-page=1
+
 
 #
+# Get Each Page Data
 #
+page=1
 while totalNum>0:
     url=top_page +'?page='+str(page)
     print "current page "+str(page)
@@ -74,9 +75,3 @@ while totalNum>0:
                     kosu +"," + \
                     ref
 
-
-
-#response = br.response()
-#print response.geturl()
-#print response.info()
-#print response.read()
