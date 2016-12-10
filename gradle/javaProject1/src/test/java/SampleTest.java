@@ -8,6 +8,6 @@ public class SampleTest {
     @Test
     public void test() {
         Sample sample = new Sample();
-        assertThat(sample.getMessage(), is("Sample?"));
+        assertThat(sample.getMessage(), is("Sample!"));
     }
 }
