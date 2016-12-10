@@ -1,37 +1,25 @@
-import {Component} from 'angular2/core'
-import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router'
-import {Top} from './components/top.component'
-import {Edit} from './components/edit.component'
-import {Search} from './components/search.component'
-
-
-const template = `
-<a [routerLink]="['Top']">topページに戻る</a>
-<router-outlet></router-outlet>
-`;
+import { Component }          from '@angular/core';
 
 @Component({
   selector: 'my-app',
-  template: template,
-  directives: [ROUTER_DIRECTIVES]
+  template: `
+    <h1 class="title">Component Router</h1>
+    <nav>
+      <a routerLink="/crisis-center" routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }">Crisis Center</a>
+      <a routerLink="/heroes" routerLinkActive="active">Heroes</a>
+      <a routerLink="/crisis-center/admin" routerLinkActive="active">Crisis Admin</a>
+      <a routerLink="/login" routerLinkActive="active">Login</a>
+    </nav>
+    <router-outlet></router-outlet>
+  `
 })
-@RouteConfig([
-  {
-    useAsDefault: true,
-    path: '/top',
-    component: Top,
-    name: 'Top'
-  },
-  {
-    path: '/edit/:id',
-    component: Edit,
-    name: 'Edit'
-  },
-  {
-    path: '/search',
-    component: Search,
-    name: 'Search'
-  }
-])
 export class AppComponent {
 }
+
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/
