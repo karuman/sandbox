@@ -1,0 +1,14 @@
+{
+  "name": "sample",
+  "version": "0.0.0",
+  "description": "electron sample",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo do nothing"
+  },
+  "keywords": [
+    "sample"
+  ],
+  "author": "karuman",
+  "license": "MIT"
+}
