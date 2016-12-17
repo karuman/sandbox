@@ -1,7 +1,9 @@
 #
 #
+#
+#
+#
 from collections import namedtuple
-
 
 signal= namedtuple('Signal','name delay')
 addinst= namedtuple('MuxInst','name a0 b0 ci so co')
@@ -10,7 +12,6 @@ scount = 0
 ccount = 0
 addinsts =[]
 acount = 0
-
 
 
 #
@@ -23,10 +24,11 @@ def printBits(bits):
         print
 
 
+        
 #
 #
 #
-def procWtSig(signals):
+def procAdderSig(signals):
     global scount
     global ccount
     global acount
@@ -55,9 +57,9 @@ def procWtSig(signals):
 #
 #
 #
-def procWt(bits):
+def procAdder(bits):
     for i in range(len(bits)):
-        r=procWtSig(bits[i])
+        r=procAdderSig(bits[i])
         if(r is not None):
             if(i<(len(bits)-1)):
                 bits[i+1].append(r)
@@ -79,7 +81,14 @@ def printInst(addinst):
         ".so(" + addinst.so +"),"+\
         ".co(" + addinst.co +")"+\
         ")"
-    
+
+#
+#
+#
+def printMsg(msg):
+    prtMsg="---"+msg+"----------------------------------------------"
+    print prtMsg[:30]
+
     
 
 #************************************************************************
@@ -149,22 +158,22 @@ signals.append(s0)
 bits.append(signals)
 
 
-print "init"
+printMsg("init")
 printBits(bits)
 
-print "transform"
-procWt(bits)
+printMsg("transform")
+procAdder(bits)
 
-print "fin"
 printBits(bits)
 
 
-print "transform"
-procWt(bits)
+printMsg("transform")
+procAdder(bits)
 
-print "fin"
+printMsg("fin")
 printBits(bits)
 
+printMsg("HDL")
 for addinst in addinsts:
     printInst(addinst)
 
