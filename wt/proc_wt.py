@@ -2,8 +2,15 @@
 #
 from collections import namedtuple
 
+
+signal= namedtuple('Signal','name delay')
+addinst= namedtuple('MuxInst','name a0 b0 ci so co')
+
 scount = 0
 ccount = 0
+addinsts =[]
+acount = 0
+
 
 
 #
@@ -22,15 +29,22 @@ def printBits(bits):
 def procWtSig(signals):
     global scount
     global ccount
+    global acount
+    global addinsts
+    
     if(len(signals)>2):
         i=max(signals[0].delay,signals[1].delay)
         i=max(i,signals[2].delay)
         name=signals[0].name+signals[1].name+signals[2].name
-        signals.pop(0)
-        signals.pop(0)
-        signals.pop(0)
+        acount= acount+1
         scount= scount+1
         ccount= ccount+1
+        addinsts.append(addinst('add'+str(acount),
+                                signals[0].name,signals[1].name,signals[2].name,
+                                's'+str(scount),'c'+str(ccount)))
+        signals.pop(0)
+        signals.pop(0)
+        signals.pop(0)
         signals.append(signal('s'+str(scount),i))
         return  signal('c'+str(ccount),i)
     else:
@@ -38,8 +52,10 @@ def procWtSig(signals):
     
 
 
-
-def procWtBits(bits):
+#
+#
+#
+def procWt(bits):
     for i in range(len(bits)):
         r=procWtSig(bits[i])
         if(r is not None):
@@ -51,51 +67,106 @@ def procWtBits(bits):
                 bits.append(signals)
 
 
-            
-signal= namedtuple('Signal','name delay')
-signals = []
-bsignals = []
+#
+#
+#
+def printInst(addinst):
+    print "fa "+ addinst.name +\
+        "(" + \
+        ".a0(" + addinst.a0 +"),"+\
+        ".b0(" + addinst.b0 +"),"+\
+        ".ci(" + addinst.ci +"),"+\
+        ".so(" + addinst.so +"),"+\
+        ".co(" + addinst.co +")"+\
+        ")"
+    
+    
+
+#************************************************************************
+#
+#
+
 bits=[]
 
-s0 = signal('a0','0')
-s1 = signal('a1','0')
-s2 = signal('a2','0')
-s3 = signal('a3','0')
-
-b0 = signal('b0','0')
-b1 = signal('b1','0')
-b2 = signal('b2','0')
-b3 = signal('b3','0')
-
-
+# 0bit
+signals = []
+s0 = signal('a0b0','0')
 signals.append(s0)
-signals.append(s1)
-signals.append(s2)
-signals.append(s3)
-
-bsignals.append(b0)
-bsignals.append(b1)
-bsignals.append(b2)
-bsignals.append(b3)
-
 bits.append(signals)
-bits.append(bsignals)
+
+# 1bit
+signals = []
+s0 = signal('a0b1','0')
+signals.append(s0)
+s0 = signal('a1b1','0')
+signals.append(s0)
+bits.append(signals)
+
+# 2bit
+signals = []
+s0 = signal('a0b2','0')
+signals.append(s0)
+s0 = signal('a1b2','0')
+signals.append(s0)
+s0 = signal('a2b2','0')
+signals.append(s0)
+bits.append(signals)
+
+# 3bit
+signals = []
+s0 = signal('a0b3','0')
+signals.append(s0)
+s0 = signal('a1b3','0')
+signals.append(s0)
+s0 = signal('a2b3','0')
+signals.append(s0)
+s0 = signal('a3b3','0')
+signals.append(s0)
+bits.append(signals)
+
+# 4bit
+signals = []
+s0 = signal('a1b4','0')
+signals.append(s0)
+s0 = signal('a2b4','0')
+signals.append(s0)
+s0 = signal('a3b4','0')
+signals.append(s0)
+bits.append(signals)
+
+# 5bit
+signals = []
+s0 = signal('a2b5','0')
+signals.append(s0)
+s0 = signal('a3b5','0')
+signals.append(s0)
+bits.append(signals)
+
+# 6bit
+signals = []
+s0 = signal('a3b6','0')
+signals.append(s0)
+bits.append(signals)
+
 
 print "init"
 printBits(bits)
 
 print "transform"
-procWtBits(bits)
+procWt(bits)
 
 print "fin"
 printBits(bits)
 
 
 print "transform"
-procWtBits(bits)
+procWt(bits)
 
 print "fin"
 printBits(bits)
+
+for addinst in addinsts:
+    printInst(addinst)
 
 
 
