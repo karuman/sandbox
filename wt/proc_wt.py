@@ -69,7 +69,18 @@ def procAdder(bits):
                 bits.append(signals)
 
 
+#Max height
 #
+#
+def maxHeight(bits):
+    height=0
+    for i in range(len(bits)):
+        curHeight=len(bits[i])
+        if(curHeight>height):
+            height=curHeight
+    return height
+        
+    
 #
 #
 def printInst(addinst):
@@ -95,83 +106,125 @@ def printMsg(msg):
 #
 #
 
-bits=[]
 
-# 0bit
-signals = []
-s0 = signal('a0b0','0')
-signals.append(s0)
-bits.append(signals)
+#----------------------------------------------
+#test data. 4x4 mult WT
+#
+def test():
+    bits=[]
+    # 0bit
+    signals = []
+    s0 = signal('a0b0','0')
+    signals.append(s0)
+    bits.append(signals)
 
-# 1bit
-signals = []
-s0 = signal('a0b1','0')
-signals.append(s0)
-s0 = signal('a1b1','0')
-signals.append(s0)
-bits.append(signals)
+    # 1bit
+    signals = []
+    s0 = signal('a0b1','0')
+    signals.append(s0)
+    s0 = signal('a1b1','0')
+    signals.append(s0)
+    bits.append(signals)
 
-# 2bit
-signals = []
-s0 = signal('a0b2','0')
-signals.append(s0)
-s0 = signal('a1b2','0')
-signals.append(s0)
-s0 = signal('a2b2','0')
-signals.append(s0)
-bits.append(signals)
+    # 2bit
+    signals = []
+    s0 = signal('a0b2','0')
+    signals.append(s0)
+    s0 = signal('a1b2','0')
+    signals.append(s0)
+    s0 = signal('a2b2','0')
+    signals.append(s0)
+    bits.append(signals)
 
-# 3bit
-signals = []
-s0 = signal('a0b3','0')
-signals.append(s0)
-s0 = signal('a1b3','0')
-signals.append(s0)
-s0 = signal('a2b3','0')
-signals.append(s0)
-s0 = signal('a3b3','0')
-signals.append(s0)
-bits.append(signals)
+    # 3bit
+    signals = []
+    s0 = signal('a0b3','0')
+    signals.append(s0)
+    s0 = signal('a1b3','0')
+    signals.append(s0)
+    s0 = signal('a2b3','0')
+    signals.append(s0)
+    s0 = signal('a3b3','0')
+    signals.append(s0)
+    bits.append(signals)
 
-# 4bit
-signals = []
-s0 = signal('a1b4','0')
-signals.append(s0)
-s0 = signal('a2b4','0')
-signals.append(s0)
-s0 = signal('a3b4','0')
-signals.append(s0)
-bits.append(signals)
+    # 4bit
+    signals = []
+    s0 = signal('a1b4','0')
+    signals.append(s0)
+    s0 = signal('a2b4','0')
+    signals.append(s0)
+    s0 = signal('a3b4','0')
+    signals.append(s0)
+    bits.append(signals)
 
-# 5bit
-signals = []
-s0 = signal('a2b5','0')
-signals.append(s0)
-s0 = signal('a3b5','0')
-signals.append(s0)
-bits.append(signals)
+    # 5bit
+    signals = []
+    s0 = signal('a2b5','0')
+    signals.append(s0)
+    s0 = signal('a3b5','0')
+    signals.append(s0)
+    bits.append(signals)
 
-# 6bit
-signals = []
-s0 = signal('a3b6','0')
-signals.append(s0)
-bits.append(signals)
+    # 6bit
+    signals = []
+    s0 = signal('a3b6','0')
+    signals.append(s0)
+    bits.append(signals)
+
+    return bits
+
+#--------------------------------------------------
+#Read bit info from a file
+#
+#
+def initFromFile():
+    f = open('text.odg')
+    line = f.readline()
+    idy=0
+    bits=[]
+
+    while line:
+        signals = []
+        for idx in range(0, len(line)):
+            if "o" in line[idx]:
+                name="a"+str(idx)+"b"+str(idy)
+                s0 = signal(name,'0')
+                signals.append(s0)
+        bits.append(signals)
+        line = f.readline()
+        idy=idy+1
+    f.close
+
+    return bits
+    #
+
+    
+#************************************************************************
+#Main 
+#
+#************************************************************************
 
 
+# initialize data
+#bits=initFromFile()  #read bits info from file
+bits=test()  #fixed 4x4 mult
+
+
+# initial stat
 printMsg("init")
 printBits(bits)
+h=maxHeight(bits)
+cnt=1
 
-printMsg("transform")
-procAdder(bits)
-
-printBits(bits)
-
-
-printMsg("transform")
-procAdder(bits)
-
-printMsg("fin")
-printBits(bits)
+while(h>2):
+    # 1st transform
+    printMsg("transform..."+str(cnt))
+    procAdder(bits)
+    printBits(bits)
+    h=maxHeight(bits)
+    cnt=cnt+1
+    
 
 printMsg("HDL")
 for addinst in addinsts:
