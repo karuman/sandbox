@@ -8,3 +8,21 @@ repositories {
 dependencies {
     testCompile "junit:junit:4.11" 
 }
+
+
+apply plugin: 'application'
+mainClassName = 'Sample'
+
+run {
+    if (project.hasProperty('args')) {    // "args" というプロパティが渡されていたら
+        args project.args.split('\\s+')   // 空白文字で split して、 run タスクの args オプションにセットする
+    }
+}
+startScripts {
+    applicationName = 'hoge'
+}
+
+
+distZip {
+    baseName = 'HelloGradle'
+}

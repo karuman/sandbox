@@ -1,7 +1,10 @@
+#coding:utf-8
 import mechanize
 import re
 import sys
 from BeautifulSoup import BeautifulSoup
+import time
+
 
 args = sys.argv
 area=args[1]  # Search Area
@@ -23,10 +26,10 @@ html = br.response().read()
 result_soup = BeautifulSoup(html)
 
 found_num= result_soup.find('span',{ "class" : "totalNum" })
-totalNum=int(found_num.text)
+totalNum=int((found_num.text).replace(',',''))
 print "total " + str(totalNum)
 
-
+f = open(area+'_out.csv', 'w')
 
 #
 # Get Each Page Data
@@ -65,13 +68,18 @@ while totalNum>0:
                 floar =tbody.find('td',{ "class" : "floar" })
                 space =tbody.find('td',{ "class" : "space" })
                 price =tbody.find('span',{ "class" : "num" })
-                print bukkenName.string +"," + \
-                    price.string  +"," + \
-                    space.string  +"," + \
-                    floar.string  +"," + \
-                    address  +"," + \
-                    kouzo  +"," + \
-                    nensu  +"," + \
-                    kosu +"," + \
-                    ref
+                f.write( (bukkenName.string +",\"" + \
+                          price.string+"\"," + \
+                          space.string  +"," + \
+                          floar.string  +"," + \
+                          address  +"," + \
+                          kouzo  +"," + \
+                          nensu  +"," + \
+                          kosu +"," + \
+                          ref+"\n").encode('utf_8') )
+
+    time.sleep(5)
+
+         
+f.close()
 
