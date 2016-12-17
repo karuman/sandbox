@@ -1,0 +1,24 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mydqlDs": {
+    "host": "localhost",
+    "port": 3045,
+    "database": "testDB",
+    "password": "mysql",
+    "name": "mydqlDs",
+    "user": "mysql",
+    "connector": "mysql"
+  },
+  "jl26165xcd": {
+    "url": "https://3f880675-7954-4cd0-a8f4-b3929fb531ad-bluemix:61836b47e58667378d87922c5fce120c09cdba6f283bfa98cfd883ce8cf90922@3f880675-7954-4cd0-a8f4-b3929fb531ad-bluemix.cloudant.com",
+    "database": "jl26165xloopback",
+    "username": "3f880675-7954-4cd0-a8f4-b3929fb531ad-bluemix",
+    "password": "61836b47e58667378d87922c5fce120c09cdba6f283bfa98cfd883ce8cf90922",
+    "name": "jl26165xcd",
+    "modelIndex": "",
+    "connector": "cloudant"
+  }
+}

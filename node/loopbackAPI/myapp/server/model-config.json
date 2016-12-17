@@ -1,0 +1,59 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "db"
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Role": {
+    "dataSource": "db",
+    "public": false
+  },
+  "CoffeeShop": {
+    "dataSource": "db",
+    "public": true
+  },
+  "TestModel": {
+    "dataSource": "jl26165xcd",
+    "public": true
+  },
+  "kairan": {
+    "dataSource": "db",
+    "public": true
+  },
+  "kariran_board": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Bookmark": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Page": {
+    "dataSource": "db",
+    "public": true
+  }
+}
