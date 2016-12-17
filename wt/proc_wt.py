@@ -40,6 +40,12 @@ def printDelay(bits):
 #
 #
 #
+def max3(a,b,c):
+    rtn=max(int(a),int(b))
+    rtn=max(int(c),rtn)
+    return rtn;
+#
+#
 def procAdderSig(signals):
     global scount
     global ccount
@@ -47,8 +53,8 @@ def procAdderSig(signals):
     global addinsts
     
     if(len(signals)>2):
-        i=max(signals[0].delay,signals[1].delay)
-        i=max(i,signals[2].delay)
+        
+        j=max3(signals[0].delay,signals[1].delay,signals[2].delay)
         name=signals[0].name+signals[1].name+signals[2].name
         acount= acount+1
         scount= scount+1
@@ -59,8 +65,8 @@ def procAdderSig(signals):
         signals.pop(0)
         signals.pop(0)
         signals.pop(0)
-        signals.append(signal('s'+str(scount),int(i)+SUM_DELAY))
-        return  signal('c'+str(ccount),int(i)+CRY_DELAY)
+        signals.append(signal('s'+str(scount),int(j)+SUM_DELAY))
+        return  signal('c'+str(ccount),int(j)+CRY_DELAY)
     else:
         return None
     
@@ -117,6 +123,7 @@ def printMsg(msg):
 #************************************************************************
 #
 #
+
 
 
 #----------------------------------------------
@@ -217,8 +224,14 @@ def initFromFile(fileName):
 #
 #************************************************************************
 
+
+
+
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument('inputFile', help='Input file path')
+
 args=parser.parse_args()
 
 
