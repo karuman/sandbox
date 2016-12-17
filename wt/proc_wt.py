@@ -4,6 +4,7 @@
 #
 #
 from collections import namedtuple
+import argparse
 
 signal= namedtuple('Signal','name delay')
 addinst= namedtuple('MuxInst','name a0 b0 ci so co')
@@ -13,6 +14,8 @@ ccount = 0
 addinsts =[]
 acount = 0
 
+SUM_DELAY=2
+CRY_DELAY=3
 
 #
 #
@@ -21,6 +24,15 @@ def printBits(bits):
     for i in range(len(bits)):
         for j in range(len(bits[i])):
             print(bits[i][j].name),
+        print
+
+#
+#
+#
+def printDelay(bits):
+    for i in range(len(bits)):
+        for j in range(len(bits[i])):
+            print(bits[i][j].delay),
         print
 
 
@@ -47,8 +59,8 @@ def procAdderSig(signals):
         signals.pop(0)
         signals.pop(0)
         signals.pop(0)
-        signals.append(signal('s'+str(scount),i))
-        return  signal('c'+str(ccount),i)
+        signals.append(signal('s'+str(scount),int(i)+SUM_DELAY))
+        return  signal('c'+str(ccount),int(i)+CRY_DELAY)
     else:
         return None
     
@@ -91,7 +103,7 @@ def printInst(addinst):
         ".ci(" + addinst.ci +"),"+\
         ".so(" + addinst.so +"),"+\
         ".co(" + addinst.co +")"+\
-        ")"
+        ");"
 
 #
 #
@@ -178,8 +190,8 @@ def test():
 #Read bit info from a file
 #
 #
-def initFromFile():
-    f = open('text.odg')
+def initFromFile(fileName):
+    f = open(fileName)
     line = f.readline()
     idy=0
     bits=[]
@@ -205,15 +217,20 @@ def initFromFile():
 #
 #************************************************************************
 
+parser = argparse.ArgumentParser()
+parser.add_argument('inputFile', help='Input file path')
+args=parser.parse_args()
+
 
 # initialize data
-#bits=initFromFile()  #read bits info from file
-bits=test()  #fixed 4x4 mult
+bits=initFromFile(args.inputFile)  #read bits info from file
+#bits=test()  #fixed 4x4 mult
 
 
 # initial stat
 printMsg("init")
 printBits(bits)
+printDelay(bits)
 h=maxHeight(bits)
 cnt=1
 
@@ -222,6 +239,7 @@ while(h>2):
     printMsg("transform..."+str(cnt))
     procAdder(bits)
     printBits(bits)
+    printDelay(bits)
     h=maxHeight(bits)
     cnt=cnt+1
     
