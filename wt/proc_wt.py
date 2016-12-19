@@ -8,15 +8,21 @@ import argparse
 
 signal= namedtuple('Signal','name delay')
 fainst= namedtuple('FaInst','name a0 b0 ci so co')
-hainst= namedtuple('HaInst','name a0 b0 ci so co')
+hainst= namedtuple('HaInst','name a0 b0 so co')
 
 scount = 0
 ccount = 0
 fainsts =[]
-acount = 0
+facount = 0
+
+hainsts =[]
+hacount = 0
 
 SUM_DELAY=2
 CRY_DELAY=3
+
+#use HA or not
+WITHOUT_HA=0
 
 #
 #
@@ -50,24 +56,41 @@ def max3(a,b,c):
 def procAdderSig(signals):
     global scount
     global ccount
-    global acount
+    global facount
     global fainsts
+    global hacount
+    global hainsts
     
     if(len(signals)>2):
-        j=max3(signals[0].delay,signals[1].delay,signals[2].delay)
-        name=signals[0].name+signals[1].name+signals[2].name
-        acount= acount+1
-        scount= scount+1
-        ccount= ccount+1
-        fainsts.append(fainst('add'+str(acount),
-                                signals[0].name,signals[1].name,signals[2].name,
-                                's'+str(scount),'c'+str(ccount)))
-        signals.pop(0)
-        signals.pop(0)
-        signals.pop(0)
-        signals.append(signal('s'+str(scount),int(j)+SUM_DELAY))
-        signals.sort(key=lambda x:int(x.delay))
-        return  signal('c'+str(ccount),int(j)+CRY_DELAY)
+        if((int(signals[2].delay)-int(signals[1].delay))<SUM_DELAY or
+           WITHOUT_HA):
+            j=max3(signals[0].delay,signals[1].delay,signals[2].delay)
+            facount= facount+1
+            scount= scount+1
+            ccount= ccount+1
+            fainsts.append(fainst('fa'+str(facount),
+                                  signals[0].name,signals[1].name,signals[2].name,
+                                  's'+str(scount),'c'+str(ccount)))
+            signals.pop(0)
+            signals.pop(0)
+            signals.pop(0)
+            signals.append(signal('s'+str(scount),int(j)+SUM_DELAY))
+            signals.sort(key=lambda x:int(x.delay))
+            return  signal('c'+str(ccount),int(j)+CRY_DELAY)
+        else:
+            j=max(int(signals[0].delay),int(signals[1].delay))
+            hacount= hacount+1
+            scount= scount+1
+            ccount= ccount+1
+            hainsts.append(hainst('ha'+str(hacount),
+                                  signals[0].name,signals[1].name,
+                                  's'+str(scount),'c'+str(ccount)))
+            signals.pop(0)
+            signals.pop(0)
+            signals.append(signal('s'+str(scount),int(j)+SUM_DELAY))
+            signals.sort(key=lambda x:int(x.delay))
+            return  signal('c'+str(ccount),int(j)+CRY_DELAY)
+            
     else:
         return None
     
@@ -101,8 +124,9 @@ def maxHeight(bits):
         
     
 #
+# Printout Full Adder Instance
 #
-def printInst(fainst):
+def printFaInst(fainst):
     print "fa "+ fainst.name +\
         "(" + \
         ".a0(" + fainst.a0 +"),"+\
@@ -112,6 +136,37 @@ def printInst(fainst):
         ".co(" + fainst.co +")"+\
         ");"
 
+#
+# Printout Half Adder Instance
+#
+def printHaInst(hainst):
+    print "ha "+ hainst.name +\
+        "(" + \
+        ".a0(" + hainst.a0 +"),"+\
+        ".b0(" + hainst.b0 +"),"+\
+        ".so(" + hainst.so +"),"+\
+        ".co(" + hainst.co +")"+\
+        ");"
+
+#
+#
+#
+def printResultSignals(bits):
+    str=''
+    for i in range(len(bits)):
+        str = bits[i][0].name+','+str
+    print str
+
+    str=''
+    for i in range(len(bits)):
+        if(len(bits[i])>1):
+            str = bits[i][1].name+','+str
+        else:
+            str = '1\'b0,'+str
+
+    print str
+
+    
 #
 #
 #
@@ -257,10 +312,14 @@ while(h>2):
     h=maxHeight(bits)
     cnt=cnt+1
     
+printResultSignals(bits)
 
 printMsg("HDL")
 for fainst in fainsts:
-    printInst(fainst)
+    printFaInst(fainst)
+
+for hainst in hainsts:
+    printHaInst(hainst)
 
 
 
