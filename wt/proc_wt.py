@@ -7,11 +7,12 @@ from collections import namedtuple
 import argparse
 
 signal= namedtuple('Signal','name delay')
-addinst= namedtuple('MuxInst','name a0 b0 ci so co')
+fainst= namedtuple('FaInst','name a0 b0 ci so co')
+hainst= namedtuple('HaInst','name a0 b0 ci so co')
 
 scount = 0
 ccount = 0
-addinsts =[]
+fainsts =[]
 acount = 0
 
 SUM_DELAY=2
@@ -50,7 +51,7 @@ def procAdderSig(signals):
     global scount
     global ccount
     global acount
-    global addinsts
+    global fainsts
     
     if(len(signals)>2):
         j=max3(signals[0].delay,signals[1].delay,signals[2].delay)
@@ -58,7 +59,7 @@ def procAdderSig(signals):
         acount= acount+1
         scount= scount+1
         ccount= ccount+1
-        addinsts.append(addinst('add'+str(acount),
+        fainsts.append(fainst('add'+str(acount),
                                 signals[0].name,signals[1].name,signals[2].name,
                                 's'+str(scount),'c'+str(ccount)))
         signals.pop(0)
@@ -101,14 +102,14 @@ def maxHeight(bits):
     
 #
 #
-def printInst(addinst):
-    print "fa "+ addinst.name +\
+def printInst(fainst):
+    print "fa "+ fainst.name +\
         "(" + \
-        ".a0(" + addinst.a0 +"),"+\
-        ".b0(" + addinst.b0 +"),"+\
-        ".ci(" + addinst.ci +"),"+\
-        ".so(" + addinst.so +"),"+\
-        ".co(" + addinst.co +")"+\
+        ".a0(" + fainst.a0 +"),"+\
+        ".b0(" + fainst.b0 +"),"+\
+        ".ci(" + fainst.ci +"),"+\
+        ".so(" + fainst.so +"),"+\
+        ".co(" + fainst.co +")"+\
         ");"
 
 #
@@ -258,8 +259,8 @@ while(h>2):
     
 
 printMsg("HDL")
-for addinst in addinsts:
-    printInst(addinst)
+for fainst in fainsts:
+    printInst(fainst)
 
 
 
