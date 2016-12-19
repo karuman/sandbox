@@ -53,7 +53,6 @@ def procAdderSig(signals):
     global addinsts
     
     if(len(signals)>2):
-        
         j=max3(signals[0].delay,signals[1].delay,signals[2].delay)
         name=signals[0].name+signals[1].name+signals[2].name
         acount= acount+1
@@ -66,6 +65,7 @@ def procAdderSig(signals):
         signals.pop(0)
         signals.pop(0)
         signals.append(signal('s'+str(scount),int(j)+SUM_DELAY))
+        signals.sort(key=lambda x:int(x.delay))
         return  signal('c'+str(ccount),int(j)+CRY_DELAY)
     else:
         return None
@@ -242,7 +242,7 @@ bits=initFromFile(args.inputFile)  #read bits info from file
 
 # initial stat
 printMsg("init")
-printBits(bits)
+#printBits(bits)
 printDelay(bits)
 h=maxHeight(bits)
 cnt=1
@@ -251,7 +251,7 @@ while(h>2):
     # 1st transform
     printMsg("transform..."+str(cnt))
     procAdder(bits)
-    printBits(bits)
+    #printBits(bits)
     printDelay(bits)
     h=maxHeight(bits)
     cnt=cnt+1
