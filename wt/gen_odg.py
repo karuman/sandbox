@@ -20,8 +20,8 @@ args=parser.parse_args()
 
 a=args.a
 b=args.b
-fo_obj = open('test.odg', 'w')
-fh_obj = open('test.hdl', 'w')
+fo_obj = open('test'+str(a)+'_'+str(b)+'.og', 'w')
+fh_obj = open('test'+str(a)+'_'+str(b)+'.v', 'w')
 
 for i in range(1,a+b):
     c=min(i,a)
