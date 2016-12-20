@@ -3,6 +3,8 @@ import {ChildComponent} from './components/child.component';
 import {InjChildComponent} from './components/injchild.component';
 import {Item} from './components/item';
 import {ItemComponent} from './components/item.component';
+import {RestComponent} from './components/rest.component';       
+import {HTTP_PROVIDERS, Http, Request, Response} from 'angular2/http';
 
 
 @Component({
@@ -18,9 +20,11 @@ import {ItemComponent} from './components/item.component';
 <my-item item="{{item}}">Loading...</my-item>
 <button (click)="reset()">Reset</button>
 
+<my-rest>Loading...</my-rest>
+
 
 `,
-directives: [ChildComponent,InjChildComponent,ItemComponent]
+directives: [ChildComponent,InjChildComponent,ItemComponent,RestComponent]
 })
 export class AppComponent {
   public item:Item =  new Item(1,'aaa','bbb','describe');

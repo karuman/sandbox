@@ -1,0 +1,17 @@
+{
+ "name": "exampleApp",
+ "description": "Packaged Apps Example",
+ "version": "1",
+ "manifest_version": 2,
+ "app": {
+   "launch": {
+     "local_path": "main.html"
+   }
+ },
+ "permissions": [
+   "http://example.com/*",
+   "geolocation",
+   "notifications",
+   "unlimitedStorage"
+ ]
+}
