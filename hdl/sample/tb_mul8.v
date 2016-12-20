@@ -8,6 +8,8 @@ module tb_mul8();
    reg rst = 1;
    reg [7:0] a;
    reg [7:0] b;
+   reg 	     flag;
+   
    wire[15:0] doutm;
    wire[15:0] doutm_lrtl;
    integer   i,j;
@@ -34,8 +36,13 @@ module tb_mul8();
 
    always @(negedge clk)
      begin
-	if(doutm != doutm_lrtl)
-	  $display("not equal");
+	if(doutm != doutm_lrtl)begin
+	   $display("not equal");
+	   flag <=1'b1;
+	end
+	else
+	  flag<=1'b0;
+	
      end
    
    

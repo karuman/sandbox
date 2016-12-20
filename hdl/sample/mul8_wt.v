@@ -9,21 +9,16 @@ module mul8_wt(sum0_00,sum1_00,
    output [17:0] result;
    
 
-   assign {a0b3,a0b2,a0b1,a0b0}=sum0_00[3:0];
-   assign {a1b3,a1b2,a1b1,a1b0}=sum1_00[3:0];
-   assign {a0b7,a0b6,a0b5,a0b4}=sum0_00[7:4];
-   assign {a1b7,a1b6,a1b5,a1b4}=sum1_00[7:4];
+   assign {a0b7,a0b6,a0b5,a0b4,a0b3,a0b2,a0b1,a0b0}=sum0_00[7:0];
+   assign {a1b7,a1b6,a1b5,a1b4,a1b3,a1b2,a1b1,a1b0}=sum1_00[7:0];
 
    assign {a2b11,a2b10,a2b9,a2b8,a2b7,a2b6,a2b5,a2b4}=sum0_01[7:0];
    assign {a3b11,a3b10,a3b9,a3b8,a3b7,a3b6,a3b5,a3b4}=sum1_01[7:0];
    assign {a4b11,a4b10,a4b9,a4b8,a4b7,a4b6,a4b5,a4b4}=sum0_10[7:0];
    assign {a5b11,a5b10,a5b9,a5b8,a5b7,a5b6,a5b5,a5b4}=sum1_10[7:0];
 
-   assign {a0b11,a0b10,a0b9,a0b8}=sum0_11[3:0];
-   assign {a1b11,a1b10,a1b9,a1b8}=sum1_11[3:0];
-
-   assign {a0b15,a0b14,a0b13,a0b12}=sum0_11[7:4];
-   assign {a1b15,a1b14,a1b13,a1b12}=sum1_11[7:5];
+   assign {a0b15,a0b14,a0b13,a0b12,a0b11,a0b10,a0b9,a0b8}=sum0_11[7:0];
+   assign {a1b15,a1b14,a1b13,a1b12,a1b11,a1b10,a1b9,a1b8}=sum1_11[7:0];
 
    fa fa1(.a0(a0b4),.b0(a1b4),.ci(a2b4),.so(s1),.co(c1));
    fa fa2(.a0(a0b5),.b0(a1b5),.ci(a2b5),.so(s2),.co(c2));
