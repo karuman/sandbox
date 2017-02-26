@@ -18,6 +18,8 @@ facount = 0
 hainsts =[]
 hacount = 0
 
+intersignals=[]
+
 SUM_DELAY=2
 CRY_DELAY=3
 
@@ -75,7 +77,10 @@ def procAdderSig(signals):
             signals.pop(0)
             signals.pop(0)
             signals.append(signal('s'+str(scount),int(j)+SUM_DELAY))
+            intersignals.append(signal('s'+str(scount),int(j)+SUM_DELAY))
             signals.sort(key=lambda x:int(x.delay))
+            intersignals.append(signal('c'+str(ccount),int(j)+CRY_DELAY))
+
             return  signal('c'+str(ccount),int(j)+CRY_DELAY)
         else:
             j=max(int(signals[0].delay),int(signals[1].delay))
@@ -88,7 +93,10 @@ def procAdderSig(signals):
             signals.pop(0)
             signals.pop(0)
             signals.append(signal('s'+str(scount),int(j)+SUM_DELAY))
+            intersignals.append(signal('s'+str(scount),int(j)+SUM_DELAY))
             signals.sort(key=lambda x:int(x.delay))
+            intersignals.append(signal('c'+str(ccount),int(j)+CRY_DELAY))
+
             return  signal('c'+str(ccount),int(j)+CRY_DELAY)
             
     else:
@@ -127,7 +135,7 @@ def maxHeight(bits):
 # Printout Full Adder Instance
 #
 def printFaInst(fainst):
-    print "fa "+ fainst.name +\
+    print "full_adder "+ fainst.name +\
         "(" + \
         ".a0(" + fainst.a0 +"),"+\
         ".b0(" + fainst.b0 +"),"+\
@@ -140,7 +148,7 @@ def printFaInst(fainst):
 # Printout Half Adder Instance
 #
 def printHaInst(hainst):
-    print "ha "+ hainst.name +\
+    print "half_adder "+ hainst.name +\
         "(" + \
         ".a0(" + hainst.a0 +"),"+\
         ".b0(" + hainst.b0 +"),"+\
@@ -148,8 +156,19 @@ def printHaInst(hainst):
         ".co(" + hainst.co +")"+\
         ");"
 
-#
-#
+def printInterSignal(signals):
+    print "signal ",
+    cnt=0
+    for signal in signals:
+        print signal.name,
+        cnt=cnt+1
+        if(cnt==len(signals)):
+            print ":std_ulogic;"
+        else:
+            print ",",
+        if(cnt%8==0):
+            print 
+            print "    ",
 #
 def printResultSignals(bits):
     str=''
@@ -263,7 +282,7 @@ def initFromFile(fileName):
         signals = []
         for idx in range(0, len(line)):
             if "o" in line[idx]:
-                name="a"+str(idx)+"b"+str(idy)
+                name="a"+str(idx)+"b("+str(idy) +")"
                 s0 = signal(name,'0')
                 signals.append(s0)
         bits.append(signals)
@@ -320,6 +339,9 @@ for fainst in fainsts:
 
 for hainst in hainsts:
     printHaInst(hainst)
+
+
+printInterSignal(intersignals)
 
 
 
